@@ -1,0 +1,152 @@
+/*
+    Document  : CSS3 Mixins SCSS file
+    Created by: John H. Day 
+    Copyright : John H. Day, 2014
+*/
+// @mixin gradients
+@mixin gradient_onthefly($direction, $startcolor, $startpercent, $endcolor, $endpercent) {
+    background-image: -moz-linear-gradient($direction, $startcolor $startpercent, $endcolor $endpercent);
+    background-image: -webkit-linear-gradient($direction, $startcolor $startpercent, $endcolor $endpercent);
+    background-image: -o-linear-gradient($direction, $startcolor $startpercent, $endcolor $endpercent);
+    background-image: linear-gradient($direction, $startcolor $startpercent, $endcolor $endpercent);
+    background-color: $endcolor;
+}
+// @mixin box shadows
+@mixin box_shadow($horizontal, $vertical, $blur, $color) {
+    background-color: $color;
+    -moz-box-shadow: $horizontal $vertical $blur $color;
+    -webkit-box-shadow: $horizontal $vertical $blur $color;
+    box-shadow: $horizontal $vertical $blur $color;
+}
+@mixin io_box_shadow($ioset, $horizontal, $vertical, $blur, $color) {
+    -moz-box-shadow: $ioset $horizontal $vertical $blur $color;
+    -webkit-box-shadow: $ioset $horizontal $vertical $blur $color;
+    box-shadow: $ioset $horizontal $vertical $blur $color;
+}
+// @mixin set background color with transparency
+@mixin transparent_color($r,$g,$b,$a) {
+    background: rgb($r,$g,$b);
+    background: rgba($r,$g,$b,$a);
+}
+// @mixin border radius
+@mixin border_radius($radius) {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+@mixin border_radius_long($topleft,$topright,$bottomright,$bottomleft) {
+    -moz-border-radius: $topleft $topright $bottomright $bottomleft;
+    -webkit-border-radius: $topleft $topright $bottomright $bottomleft;
+    border-radius: $topleft $topright $bottomright $bottomleft;
+}
+// @mixin box-sizing
+@mixin box_sizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+// @mixin column count + gap
+@mixin columncount_gap($count, $gap) {
+    -moz-column-count: $count;
+    -webkit-column-count: $count;
+    column-count: $count;
+    -moz-column-gap: $gap;
+    -webit-column-gap: $gap;
+    column-gap: $gap;
+}
+// @mixin multiple column + gap + column rule
+@mixin columncount_gap_rule($count, $gap, $rule) {
+    -moz-column-count: $count;
+    -webkit-column-count: $count;
+    column-count: $count;
+    -moz-column-gap: $gap;
+    -webit-column-gap: $gap;
+    column-gap: $gap;
+    -moz-column-rule: $rule;
+    -webkit-column-rule: $rule;
+    column-rule: $rule;
+}
+// @mixin columns
+@mixin columns($width, $count) {
+    -moz-columns: $width $count;
+    -webkit-columns: $width $count;
+    columns: $width $count;
+}
+// @mixin columns + column gap
+@mixin columns_gap($width, $count, $gap) {
+    -moz-columns: $width $count;
+    -webkit-columns: $width $count;
+    columns: $width $count;
+    -moz-column-gap: $gap;
+    -webit-column-gap: $gap;
+    column-gap: $gap;
+}
+// @mixin columns + column gap + column rule
+@mixin columns_gap_rule($width, $count, $gap, $rule) {
+    -moz-columns: $width $count;
+    -webkit-columns: $width $count;
+    columns: $width $count;
+    -moz-column-gap: $gap;
+    -webit-column-gap: $gap;
+    column-gap: $gap;
+    -moz-column-rule: $rule;
+    -webkit-column-rule: $rule;
+    column-rule: $rule;
+}
+// @mixin border-image
+@mixin border_image($fallback, $url, $top, $right, $bottom, $left, $repeat) {
+    border: $fallback;
+    -moz-border-image:url('$url') $top $right $bottom $left $repeat;
+    -webkit-border-image:url('$url') $top $right $bottom $left $repeat;
+    border-image:url('$url') $top $right $bottom $left $repeat;
+}
+// @mixin two backgrounds
+@mixin two_backgrounds($width, $height, $url1, $url2, $image1position, $image2position, $repeat) {
+    width: $width;
+    height: $height;
+    background-image:url('$url1'), url('$url2');
+    background-position: $image1position, $image2position;
+    background-repeat: $repeat;
+}
+
+// NOTE: FOLLOWING IS FROM BONES TEMPLATE FOR WORDPRESS
+// Designed by **Eddie Machado**: http://themble.com/bones
+
+/*********************
+TRANSITION
+*********************/
+
+/*
+I totally rewrote this to be cleaner and easier to use.
+You'll need to be using Sass 3.2+ for these to work.
+Thanks to @anthonyshort for the inspiration on these.
+USAGE: @include transition(all 0.2s ease-in-out);
+*/
+
+@mixin transition($transition...) {
+	// defining prefixes so we can use them in mixins below
+	$prefixes:      ("-webkit",  "");
+  @each $prefix in $prefixes {
+    #{$prefix}-transition: $transition;
+  }
+
+  transition: $transition;
+}
+
+/*********************
+CSS3 GRADIENTS
+Be careful with these since they can
+really slow down your CSS. Don't overdo it.
+*********************/
+
+/* @include css-gradient(#dfdfdf,#f8f8f8); */
+@mixin css-gradient($from: #dfdfdf, $to: #f8f8f8) {
+	background-color: $to;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+	background-image: -webkit-linear-gradient(top, $from, $to);
+	background-image: -moz-linear-gradient(top, $from, $to);
+	background-image: -o-linear-gradient(top, $from, $to);
+	background-image: linear-gradient(to bottom, $from, $to);
+}
+
